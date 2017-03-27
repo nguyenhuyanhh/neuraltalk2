@@ -135,7 +135,7 @@ local function eval_split(split, evalopt)
     local seq = protos.lm:sample(feats, sample_opts)
     local sents = net_utils.decode_sequence(vocab, seq)
     for k=1,#sents do
-      local entry = {image_id = data.infos[k].id, caption = sents[k]}
+      local entry = {image_id = tonumber(data.infos[k].id), caption = sents[k]}
       if opt.dump_path == 1 then
         entry.file_name = data.infos[k].file_path
       end
@@ -147,7 +147,7 @@ local function eval_split(split, evalopt)
         os.execute(cmd) -- dont think there is cleaner way in Lua
       end
       if verbose then
-        print(string.format('image %s: %s', entry.image_id, entry.caption))
+        print(string.format('img %s: %s', data.infos[k].file_path, entry.caption))
       end
     end
 
